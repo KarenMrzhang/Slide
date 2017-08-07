@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery焦点图轮播切换代码</title>
+
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+
+
+.box{
+	width: 960px;
+	height: 358px;
+	top:200px;
+	left:25%;
+	position: relative;
+	text-align: center;
+	background: url("img/AlbumBg.png");
+}
+
+.list{
+	overflow: hidden;
+	position: absolute;
+	margin-top: 35px;
+	margin-bottom: 0px;
+}
+
+.list ul{
+	 width: 960px;
+	 height: 358px;
+ }
+
+
+.btn{
+	position: absolute;
+	z-index: 10;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+	width: 39px;
+	height: 80px;
+	top: 150px;
+	text-indent: -9999px;
+	left: 50px;
+	background: url(img/mmbtn.png) no-repeat;
+	cursor: pointer;
+}
+.next{
+	left: auto;
+	right: 50px;
+	background-position: right 0;
+}
+
+li{
+	position: absolute;
+	top: 0;
+	left: 0;
+	list-style: none;
+	opacity: 0.8	;
+	transition: all 0.3s ease-out;
+}
+
+li span{
+	background: #fff;
+	height: 100%;
+	width: 100%;
+	opacity: 0.8;
+	position: absolute;
+	top:0;
+	left: 0;
+}
+
+img{
+	width: 202px;
+	height: 282px;
+	border: 1px solid #fff;
+}
+.p1{
+	transform:translate3d(-10px,-50px,0) scale(0.55);
+	z-index: 1;
+	opacity: 1;
+}
+.p2{
+	transform:translate3d(10px,-10px,0) scale(0.70);
+	transform-origin:0 50%;
+	z-index: 2;
+	opacity: 1;
+
+}
+.p3{
+	transform:translate3d(50px,10px,0) scale(0.75);
+	z-index: 3;
+	opacity: 1;
+}
+.p4{
+	transform:translate3d(165px,0,0) scale(0.95);
+	z-index: 4;
+	opacity: 1;
+}
+.p5{
+	transform:translate3d(375px,0,0) scale(1);
+	z-index: 5;
+	opacity: 1;
+}
+.p6{
+	transform:translate3d(585px,0,0) scale(0.95);
+	z-index: 4;
+	opacity: 1;
+}
+.p7{
+	transform:translate3d(712px,10px,0) scale(0.75);
+	z-index: 3;
+	opacity: 1;
+}
+.p8{
+	transform:translate3d(770px,-10px,0) scale(0.70);
+	z-index: 2;
+	opacity: 1;
+}
+.p9{
+	transform:translate3d(765px,-50px,0) scale(0.55);
+	z-index: 1;
+	opacity: 1;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+	<div class="list">
+		<ul>
+			<li class="p9"><a href="#"><img src="img/images.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p8"><a href="#"><img src="img/images1.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p7"><a href="#"><img src="img/images2.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p6"><a href="#"><img src="img/images3.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p5"><a href="#"><img src="img/images4.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p4"><a href="#"><img src="img/images5.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p3"><a href="#"><img src="img/images6.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p2"><a href="#"><img src="img/images7.png" alt="" /></a><span class="cBoxBg"></span></li>
+			<li class="p1"><a href="#"><img src="img/images8.png" alt="" /></a><span class="cBoxBg"></span></li>
+
+		</ul>
+	</div>
+	
+	<a href="javascript:;" class="prev btn"><</a>
+	<a href="javascript:;" class="next btn">></a>
+</div>
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+var $a=$(".buttons a");
+var $s=$(".buttons span");
+var cArr=["p9","p8","p7","p6","p5","p4","p3","p2","p1"];
+var index=0;
+
+show();          //初始化时，p5图层隐藏
+
+$(".next").click(
+	function(){
+	nextimg();
+	}
+)
+$(".prev").click(
+	function(){
+	previmg();
+	}
+)
+//上一张
+function previmg(){
+	cArr.unshift(cArr[8]);
+	cArr.pop();
+	//i是元素的索引，从0开始
+	//e为当前处理的元素
+	//each循环，当前处理的元素移除所有的class，然后添加数组索引i的class
+	$("li").each(function(i,e){
+		$(e).removeClass().addClass(cArr[i]);
+	})
+	index--;
+	if (index<0) {
+		index=8;
+	}
+	show();
+}
+
+//下一张
+function nextimg(){
+	cArr.push(cArr[0]);
+	cArr.shift();
+	$("li").each(function(i,e){
+		$(e).removeClass().addClass(cArr[i]);
+	})
+	index++;
+	if (index>8) {
+		index=0;
+	}
+	show();
+}
+
+//改变底下按钮的背景色
+function show(){
+//		$($s).eq(index).addClass("blue").parent().siblings().children().removeClass("blue");
+	$('.list ul').children().find('span').show();
+    $('.p5').find('span').hide();
+}
+
+//			鼠标移入box时清除定时器
+$(".box").mouseover(function(){
+	clearInterval(timer);
+})
+
+//			鼠标移出box时开始定时器
+$(".box").mouseleave(function(){
+	timer=setInterval(nextimg,4000);
+})
+
+//          hover时图层的变化
+$('.list ul li').hover(function () {
+    $(this).find('span').hide();
+},function () {
+    if(!$(this).is($('.p5'))){
+        $(this).find('span').show();
+	}
+})
+
+//			进入页面自动开始定时器
+timer=setInterval(nextimg,4000);
+</script>
+</div>
+</body>
+</html>
