@@ -3,7 +3,12 @@ JQuery焦点轮播图
 
 
 
-![](http://www.zklang.cn/Slide/img/show.gif)
+
+
+![Demo演示](http://www.zklang.cn/Slide/img/show.gif)
+
+
+
 
 
 
