@@ -2,5 +2,7 @@
 JQuery焦点轮播图
 
 
-演示地址：
-http://www.zklang.cn/Slide/index.html
+
+
+#演示地址：
+##http://www.zklang.cn/Slide/index.html
